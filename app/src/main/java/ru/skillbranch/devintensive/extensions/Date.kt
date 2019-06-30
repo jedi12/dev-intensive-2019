@@ -59,13 +59,13 @@ fun toRightTime(value: Long, timeUnit: TimeUnits): String {
     }
 
     return when (lastValue) {
-        1 -> "$lastValue ${timeUnit.name1}"
-        in 2..4 -> "$lastValue ${timeUnit.name2}"
-        else -> "$lastValue ${timeUnit.name3}"
+        1 -> "$lastValue ${timeUnit.one}"
+        in 2..4 -> "$lastValue ${timeUnit.few}"
+        else -> "$lastValue ${timeUnit.many}"
     }
 }
 
-enum class TimeUnits(val name1: String, val name2: String, val name3: String) {
+enum class TimeUnits(val one: String, val few: String, val many: String) {
     SECOND("секунда", "секунды", "секунд"),
     MINUTE("минута", "минуты", "минут"),
     HOUR("час", "часа", "часов"),
