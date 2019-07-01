@@ -53,15 +53,16 @@ fun Date.humanizeDiff(date: Date = Date()): String {
 }
 
 fun toRightTime(value: Long, timeUnit: TimeUnits): String {
-    val lastValue = when (val lastIndex = value.toString().length) {
-        1 -> value.toString().substring(lastIndex - 1, lastIndex).toInt()
-        else -> value.toString().substring(lastIndex - 2, lastIndex).toInt()
+    if (value in 11..19) {
+        return "$value ${timeUnit.many}"
     }
 
-    return when (lastValue) {
-        1 -> "$lastValue ${timeUnit.one}"
-        in 2..4 -> "$lastValue ${timeUnit.few}"
-        else -> "$lastValue ${timeUnit.many}"
+    val lastIndex = value.toString().length
+
+    return when (value.toString().substring(lastIndex - 1, lastIndex).toInt()) {
+        1 -> "$value ${timeUnit.one}"
+        in 2..4 -> "$value ${timeUnit.few}"
+        else -> "$value ${timeUnit.many}"
     }
 }
 
