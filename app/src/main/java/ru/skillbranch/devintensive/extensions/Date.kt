@@ -67,8 +67,12 @@ fun toRightTime(value: Long, timeUnit: TimeUnits): String {
 }
 
 enum class TimeUnits(val one: String, val few: String, val many: String) {
-    SECOND("секунда", "секунды", "секунд"),
-    MINUTE("минута", "минуты", "минут"),
+    SECOND("секунду", "секунды", "секунд"),
+    MINUTE("минуту", "минуты", "минут"),
     HOUR("час", "часа", "часов"),
-    DAY("день", "дня", "дней")
+    DAY("день", "дня", "дней");
+
+    fun plural(value: Int): String {
+        return toRightTime(value.toLong(), this)
+    }
 }
