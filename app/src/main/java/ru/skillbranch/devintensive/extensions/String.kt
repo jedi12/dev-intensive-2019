@@ -3,9 +3,9 @@ package ru.skillbranch.devintensive.extensions
 val htmlTagRegex = """<.*?>""".toRegex()
 val moreTwoSpacesRegex = """\s{2,}""".toRegex()
 
-fun String.truncate(len: Int = 16): String {
-    val result = this.trim()
-    return if (result.length <= len + 1) result else "${result.take(len + 1).trimEnd()}..."
+fun String.truncate(count: Int = 16): String {
+    if (this.trim().length <= count) return this.trim()
+    return this.substring(0, count).trim() + "..."
 }
 
 fun String.stripHtml(): String {
