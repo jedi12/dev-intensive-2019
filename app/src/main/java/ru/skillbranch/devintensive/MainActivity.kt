@@ -96,8 +96,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
-            onClick(sendBtn)
             hideKeyboard()
+            onClick(sendBtn)
             return true
         }
         return false
