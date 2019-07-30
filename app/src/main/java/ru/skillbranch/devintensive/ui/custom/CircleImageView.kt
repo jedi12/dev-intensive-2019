@@ -1,9 +1,11 @@
 package ru.skillbranch.devintensive.ui.custom
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.widget.ImageView
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
@@ -87,5 +89,36 @@ class CircleImageView @JvmOverloads constructor(
 
     fun setBorderColor(@ColorRes colorId: Int) {
         borderColor = ContextCompat.getColor(App.applicationContext(), colorId)
+    }
+
+    fun updateAvatar(initials: String?, theme: Resources.Theme) {
+        if (initials != null) {
+            val image = Bitmap.createBitmap(layoutParams.height, layoutParams.height, Bitmap.Config.ARGB_8888)
+            val color = TypedValue()
+            theme.resolveAttribute(R.attr.colorAccent, color, true)
+
+            val canvas = Canvas(image)
+            canvas.drawColor(color.data)
+
+            val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+            paint.textSize = 48f * context.resources.displayMetrics.scaledDensity.toInt()
+            paint.color = Color.WHITE
+            paint.textAlign = Paint.Align.CENTER
+
+            val textBounds = Rect()
+            paint.getTextBounds(initials, 0, initials.length, textBounds)
+
+            val backgroundBounds = RectF()
+            backgroundBounds.set(0f, 0f, layoutParams.height.toFloat(), layoutParams.height.toFloat())
+
+            val textBottom = backgroundBounds.centerY() - textBounds.exactCenterY()
+            val canvas1 = Canvas(image)
+            canvas1.drawText(initials, backgroundBounds.centerX(), textBottom, paint)
+
+            setImageDrawable(BitmapDrawable(resources, transformToCircleWithColorBorder(image, borderColor, borderWidth)))
+        } else {
+            setImageDrawable(BitmapDrawable(resources, transformToCircleWithColorBorder(getBitmapFromDrawable(), borderColor, borderWidth)))
+        }
+        invalidate()
     }
 }
