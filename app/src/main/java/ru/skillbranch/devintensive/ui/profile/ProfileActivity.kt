@@ -48,7 +48,7 @@ class ProfileActivity : AppCompatActivity() {
         viewModel.getProfileData().observe(this, Observer { updateUi(it) })
         viewModel.getTheme().observe(this, Observer { updateTheme(it) })
         viewModel.getRepositoryError().observe(this, Observer { updateRepoError(it) })
-        viewModel.getIsRepoError().observe(this, Observer { updateRepository(it) })
+//        viewModel.getIsRepoError().observe(this, Observer { updateRepository(it) })
     }
 
     private fun updateRepoError(isError: Boolean) {
